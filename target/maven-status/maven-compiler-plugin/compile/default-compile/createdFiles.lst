@@ -1,0 +1,4 @@
+ua\edu\lab\model\Comment.class
+ua\edu\lab\model\CreateCommentRequest.class
+ua\edu\lab\web\CommentsServlet.class
+ua\edu\lab\dao\CommentDao.class

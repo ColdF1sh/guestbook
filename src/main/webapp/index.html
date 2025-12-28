@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Книга відгуків</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        textarea { width: 300px; height: 80px; }
+        .comment { border-bottom: 1px solid #ccc; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<h1>Книга відгуків</h1>
+
+<form id="form">
+    <input type="text" id="author" value="Artem" required maxlength="64"><br><br>
+    <textarea id="text" required maxlength="1000"></textarea><br><br>
+    <button type="submit">Додати</button>
+</form>
+
+<h2>Відгуки</h2>
+<div id="comments"></div>
+
+<script>
+    async function loadComments() {
+        const res = await fetch('comments');
+        const data = await res.json();
+        const div = document.getElementById('comments');
+        div.innerHTML = '';
+        data.forEach(c => {
+            div.innerHTML += `<div class="comment">
+            <b>${c.author}</b>: ${c.text}
+        </div>`;
+        });
+    }
+
+    document.getElementById('form').addEventListener('submit', async e => {
+        e.preventDefault();
+        await fetch('comments', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                author: document.getElementById('author').value,
+                text: document.getElementById('text').value
+            })
+        });
+        document.getElementById('text').value = '';
+        loadComments();
+    });
+
+    loadComments();
+</script>
+
+</body>
+</html>
