@@ -2,7 +2,7 @@
 
 JDK: 21
 
-Maven: 3.9.x
+Maven: 3.9.12
 
 Команда запуску
 mvn jetty:run
